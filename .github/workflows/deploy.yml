@@ -45,6 +45,10 @@ jobs:
             echo "Navigating to project directory"
             cd /home/ubuntu/strapi-manual/strapi-project
 
+            echo "Fixing ownership and permissions"
+            sudo chown -R $USER:$USER /home/ubuntu/strapi-manual
+            sudo chown -R $USER:$USER /home/ubuntu/strapi-manual/strapi-project
+
             echo "Adding exception for safe directory"
             git config --global --add safe.directory /home/ubuntu/strapi-manual
 
@@ -52,8 +56,7 @@ jobs:
             git pull origin master
 
             echo "Fixing npm permissions"
-            sudo chown -R $USER:$GROUP ~/.npm
-            sudo chown -R $USER:$GROUP /home/ubuntu/strapi-manual/strapi-project
+            sudo chown -R $USER:$USER ~/.npm
 
             echo "Installing dependencies"
             npm install --legacy-peer-deps

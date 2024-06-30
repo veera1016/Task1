@@ -19,7 +19,7 @@ jobs:
         node-version: '18.x'
 
     - name: Install dependencies
-      run: npm install
+      run: npm install --legacy-peer-deps
       working-directory: ./strapi-project
 
     - name: Build Strapi project
@@ -38,8 +38,8 @@ jobs:
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd /home/ubuntu/strapi-manual/strapi-project
+          cd /srv/strapi-app/strapi-project
           git pull origin master
-          npm install
+          npm install --legacy-peer-deps
           npm run build
           pm2 start npm --name "strapi-project" -- run start || pm2 restart strapi-project 
